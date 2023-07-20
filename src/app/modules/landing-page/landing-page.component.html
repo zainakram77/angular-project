@@ -1,0 +1,480 @@
+<div class="container">
+    <div class="header">
+        <h2 class="referel-heading">Referal Form</h2>
+    </div>
+    <div class="d-flex container">
+        <mat-card class="width-50-percent">
+            <mat-card-title class="card-title">Appointment</mat-card-title>
+            <mat-card-content>
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker" [min]="todayDate" [(ngModel)]="appointment" required>
+                    <mat-hint class="mat-hint">MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label class="label">Time</mat-label>
+                    <input matInput type="time" [(ngModel)]="time" required>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="width-50-percent">
+            <mat-card-title class="card-title">Patient Information</mat-card-title>
+            <mat-card-content>
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>First Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="firstName" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="lastName" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="pickers" [(ngModel)]="dob" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="pickers"></mat-datepicker-toggle>
+                    <mat-datepicker #pickers></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Gaurdian</mat-label>
+                    <input matInput type="text" [(ngModel)]="gaurdian" required>
+                </mat-form-field>
+                <mat-form-field class="inputs" appearance="outline">
+                    <mat-label>Phone</mat-label>
+                    <input type="tel" matInput placeholder="0000-0000000" [(ngModel)]="phone" required>
+                </mat-form-field>
+                <mat-form-field class="inputs" appearance="outline">
+                    <mat-label>Secondary</mat-label>
+                    <input type="tel" matInput placeholder="0000-0000000" [(ngModel)]="secondary" required>
+                </mat-form-field>
+                <mat-form-field class="email-input" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" [(ngModel)]="email" required>
+                </mat-form-field>
+                <mat-form-field class="email-input" appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input matInput type="text" [(ngModel)]="address">
+                </mat-form-field>
+                <p class="options">
+                    <label style="float: left;">
+                        <input type="radio" name="options" value="first" [(ngModel)]="selectedFirst">
+                        please call patient
+                    </label>
+
+                    <label>
+                        <input type="radio" name="options" value="second" [(ngModel)]="selectedSecond">
+                        patient will call
+                    </label>
+                </p>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+
+    <div class="d-flex container">
+        <mat-card class="width-50-percent">
+            <mat-card-title class="card-title">Insurance Details</mat-card-title>
+            <mat-card-content>
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Insurance company</mat-label>
+                    <input matInput type="text" [(ngModel)]="insurance" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Insurance ID</mat-label>
+                    <input matInput type="text" [(ngModel)]="insuranceid" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>SS#</mat-label>
+                    <input matInput type="text" [(ngModel)]="sshash" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="insuredpickers" [(ngModel)]="insureddob" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="insuredpickers"></mat-datepicker-toggle>
+                    <mat-datepicker #insuredpickers></mat-datepicker>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-flat-button color="primary">Add Insurance</button>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="width-50-percent">
+            <mat-card-title class="card-title">Refering Information</mat-card-title>
+            <mat-card-content>
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Refered By</mat-label>
+                    <mat-select [(ngModel)]="selectedDoctor" (selectionChange)="onDoctorSelection()">
+                        <mat-option *ngFor="let doctor of doctors" [value]="doctor.referedBy">{{ doctor.referedBy
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Refering To</mat-label>
+                    <input matInput type="text" [(ngModel)]="selectedDoctorData.referingTo">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" [(ngModel)]="selectedDoctorData.email">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="inputs">
+                    <mat-label>Phone</mat-label>
+                    <input matInput type="tel" [(ngModel)]="selectedDoctorData.phone">
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="container">
+        <mat-card class="width-full">
+            <mat-card-title class="card-title">Reasons for referel/procedure</mat-card-title>
+            <mat-card-content>
+                <mat-tab-group fitInkBarToContent>
+                    <mat-tab label="ORAL">
+                        <mat-checkbox>Extractions Wisdoms</mat-checkbox><br>
+                        <mat-checkbox>Impactions</mat-checkbox><br>
+                        <mat-checkbox>Implants</mat-checkbox><br>
+                        <mat-checkbox>Exposure/Bond</mat-checkbox><br>
+                        <mat-checkbox>Alveoplasty</mat-checkbox><br>
+                        <mat-checkbox>Biopsy</mat-checkbox><br>
+                        <mat-checkbox>Bone/CT Grafting</mat-checkbox><br>
+                        <mat-checkbox>Tori removal</mat-checkbox><br>
+                        <mat-checkbox>Sinus Lift/Close</mat-checkbox><br>
+                    </mat-tab>
+                    <mat-tab label="ENDO">
+                        <mat-checkbox>Root Canal</mat-checkbox><br>
+                        <mat-checkbox>Retreatment</mat-checkbox><br>
+                        <mat-checkbox>Apicoectomy</mat-checkbox><br>
+                        <mat-checkbox>Restorative repair</mat-checkbox><br>
+                        <mat-checkbox>Post removal</mat-checkbox><br>
+                        <mat-checkbox>Retrograde filling</mat-checkbox><br>
+                    </mat-tab>
+                    <mat-tab label="PEDO">
+                        <mat-checkbox>Uncooperative</mat-checkbox><br>
+                        <mat-checkbox>Caires/Decay</mat-checkbox><br>
+                        <mat-checkbox>PPY/SSC</mat-checkbox><br>
+                        <mat-checkbox>Extractions</mat-checkbox><br>
+                        <mat-checkbox>Too young</mat-checkbox><br>
+                    </mat-tab>
+                    <mat-tab label="PERIO">
+                        <mat-checkbox>GT generation</mat-checkbox><br>
+                        <mat-checkbox>Gingivictomy/Plasty</mat-checkbox><br>
+                        <mat-checkbox>Scaling/Root planning</mat-checkbox><br>
+                        <mat-checkbox>Perio maintenance</mat-checkbox><br>
+                    </mat-tab>
+                    <mat-tab label="OTHER">
+                        <mat-checkbox>CBCT Scan</mat-checkbox><br>
+                        <mat-checkbox>3D Image</mat-checkbox><br>
+                        <mat-checkbox>Proface Image</mat-checkbox><br>
+                        <mat-checkbox>Ceph</mat-checkbox><br>
+                        <mat-checkbox>Digital denture</mat-checkbox><br>
+                        <mat-checkbox>Sedation(Nitrous)</mat-checkbox><br>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    
+    <div class="container">
+        <mat-card class="width-full">
+            <mat-card-title class="card-title">Extraction Information</mat-card-title>
+            <mat-card-content>
+                <div class='form4'>
+                        <div class="col-1">
+                            <img src='../assets/images/1.svg' alt="images.jpge" />
+                            <img src='../assets/images/2.svg' alt="images.jpge" />
+                            <img src='../assets/images/3.svg' alt="images.jpge" />
+                            <img src='../assets/images/4.svg' alt="images.jpge" />
+                            <img src='../assets/images/5.svg' alt="images.jpge" />
+                            <img src='../assets/images/6.svg' alt="images.jpge" />
+                            <img src='../assets/images/7.svg' alt="images.jpge" />
+                            <img src='../assets/images/8-01.svg' alt="images.jpge" />
+                            <img src='../assets/images/9.svg' alt="images.jpge" />
+                            <img src='../assets/images/10.svg' alt="images.jpge" />
+                            <img src='../assets/images/11.svg' alt="images.jpge" />
+                            <img src='../assets/images/12.svg' alt="images.jpge" />
+                            <img src='../assets/images/13.svg' alt="images.jpge" />
+                            <img src='../assets/images/14.svg' alt="images.jpge" />
+                            <img src='../assets/images/15.svg' alt="images.jpge" />
+                            <img src='../assets/images/16.svg' alt="images.jpge" />
+                        </div>
+                    <div class="col-1">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <div class="col-1">
+                        <p class="teeth-p">1</p>
+                        <p class="teeth-p">2</p>
+                        <p class="teeth-p">3</p>
+                        <p class="teeth-p">4</p>
+                        <p class="teeth-p">5</p>
+                        <p class="teeth-p">6</p>
+                        <p class="teeth-p">7</p>
+                        <p class="teeth-p">8</p>
+                        <p class="teeth-p">9</p>
+                        <p class="teeth-p">10</p>
+                        <p class="teeth-p">11</p>
+                        <p class="teeth-p">12</p>
+                        <p class="teeth-p">13</p>
+                        <p class="teeth-p">14</p>
+                        <p class="teeth-p">15</p>
+                        <p class="teeth-p">16</p>
+                    </div>
+                    <div class="col-1">
+                        <p class="teeth-p">32</p>
+                        <p class="teeth-p">31</p>
+                        <p class="teeth-p">30</p>
+                        <p class="teeth-p">29</p>
+                        <p class="teeth-p">28</p>
+                        <p class="teeth-p">27</p>
+                        <p class="teeth-p">26</p>
+                        <p class="teeth-p">25</p>
+                        <p class="teeth-p">24</p>
+                        <p class="teeth-p">23</p>
+                        <p class="teeth-p">22</p>
+                        <p class="teeth-p">21</p>
+                        <p class="teeth-p">20</p>
+                        <p class="teeth-p">19</p>
+                        <p class="teeth-p">18</p>
+                        <p class="teeth-p">17</p>
+                    </div>
+                    <div class="col-1">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <div class="col-1">
+                        <img src='../assets/images/17.svg' alt="images.jpge" />
+                        <img src='../assets/images/18.svg' alt="images.jpge" />
+                        <img src='../assets/images/19.svg' alt="images.jpge" />
+                        <img src='../assets/images/20.svg' alt="images.jpge" />
+                        <img src='../assets/images/21.svg' alt="images.jpge" />
+                        <img src='../assets/images/22.svg' alt="images.jpge" />
+                        <img src='../assets/images/23.svg' alt="images.jpge" />
+                        <img src='../assets/images/24.svg' alt="images.jpge" />
+                        <img src='../assets/images/25.svg' alt="images.jpge" />
+                        <img src='../assets/images/26.svg' alt="images.jpge" />
+                        <img src='../assets/images/27.svg' alt="images.jpge" />
+                        <img src='../assets/images/28.svg' alt="images.jpge" />
+                        <img src='../assets/images/29.svg' alt="images.jpge" />
+                        <img src='../assets/images/30.svg' alt="images.jpge" />
+                        <img src='../assets/images/31.svg' alt="images.jpge" />
+                        <img src='../assets/images/32.svg' alt="images.jpge" />
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-content>
+                <div class='form4'>
+                    <div class="second-row">
+                    <div class="col-1">
+                        <img src='../assets/images/A.svg' alt="images.jpge" />
+                        <img src='../assets/images/B.svg' alt="images.jpge" />
+                        <img src='../assets/images/C.svg' alt="images.jpge" />
+                        <img src='../assets/images/D.svg' alt="images.jpge" />
+                        <img src='../assets/images/E.svg' alt="images.jpge" />
+                        <img src='../assets/images/F.svg' alt="images.jpge" />
+                        <img src='../assets/images/G.svg' alt="images.jpge" />
+                        <img src='../assets/images/H.svg' alt="images.jpge" />
+                        <img src='../assets/images/I.svg' alt="images.jpge" />
+                        <img src='../assets/images/J.svg' alt="images.jpge" />
+                    </div>
+                <div class="col-1">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                </div>
+                <div class="col-1">
+                    <p class="teeth-p">A</p>
+                    <p class="teeth-p">B</p>
+                    <p class="teeth-p">C</p>
+                    <p class="teeth-p">D</p>
+                    <p class="teeth-p">E</p>
+                    <p class="teeth-p">F</p>
+                    <p class="teeth-p">G</p>
+                    <p class="teeth-p">H</p>
+                    <p class="teeth-p">I</p>
+                    <p class="teeth-p">J</p>
+                </div>
+                <div class="col-1">
+                    <p class="teeth-p">T</p>
+                    <p class="teeth-p">S</p>
+                    <p class="teeth-p">R</p>
+                    <p class="teeth-p">Q</p>
+                    <p class="teeth-p">P</p>
+                    <p class="teeth-p">O</p>
+                    <p class="teeth-p">N</p>
+                    <p class="teeth-p">M</p>
+                    <p class="teeth-p">L</p>
+                    <p class="teeth-p">K</p>
+                </div>
+                <div class="col-1">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                    <input type="checkbox" class="checkbox">
+                </div>
+                <div class="col-1">
+                    <img src='../assets/images/K.svg' alt="images.jpge" />
+                    <img src='../assets/images/L.svg' alt="images.jpge" />
+                    <img src='../assets/images/M.svg' alt="images.jpge" />
+                    <img src='../assets/images/N.svg' alt="images.jpge" />
+                    <img src='../assets/images/O.svg' alt="images.jpge" />
+                    <img src='../assets/images/P.svg' alt="images.jpge" />
+                    <img src='../assets/images/Q.svg' alt="images.jpge" />
+                    <img src='../assets/images/R.svg' alt="images.jpge" />
+                    <img src='../assets/images/S.svg' alt="images.jpge" />
+                    <img src='../assets/images/T.svg' alt="images.jpge" />  
+                </div>
+            </div>
+        </div>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+
+    <div class="d-flex container">
+        <mat-card class="width-50-percent">
+            <mat-card-title class="card-title">Special Instructions</mat-card-title>
+            <mat-card-content>
+                <mat-form-field class="email-input" appearance="outline" style="max-height: 100px;">
+                    <mat-label>Comments</mat-label>
+                    <textarea matInput [(ngModel)]="comments" required></textarea>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="width-50-percent">
+            <mat-card-title class="card-title">Medications</mat-card-title>
+            <mat-card-content>
+                <div class="d-flex" style="margin-bottom: 10px;">
+                    <p class="p-text">Does the patient require antibiotics to prior dental treatment?</p>&nbsp;
+                        <button mat-flat-button color="primary" (click)="isMedication=true">Yes</button>
+                        <button mat-flat-button color="accent" (click)="isMedication=false">No</button>
+                </div>
+                <mat-form-field appearance="outline" class="email-input">
+                    <mat-label>explain</mat-label>
+                    <input matInput [disabled]="!isMedication" [(ngModel)]="medicationFirst">
+                </mat-form-field>
+
+                <div class="d-flex container" style="margin-bottom: 10px;">
+                    <p class="p-text">Is the patient currently taking or has taken a biophosphonate medications in the
+                        past 2 years ?</p>&nbsp;
+                    <button mat-flat-button color="primary" (click)="isMedications=true">Yes</button>
+                    <button mat-flat-button color="accent" (click)="isMedications=false">No</button>
+                </div>
+                <mat-form-field appearance="outline" class="email-input">
+                    <mat-label>explain</mat-label>
+                    <input matInput [disabled]="!isMedications" [(ngModel)]="medicationSecond">
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="d-flex container">
+        <mat-card class="width-50-percent">
+            <mat-card-title class="card-title">Documents</mat-card-title>
+            <mat-card-content>
+              <table class="grid-table">
+                <thead>
+                  <tr>
+                    <th>Document Name</th>
+                    <th>File</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Upload Insurance Card (Front)</td>
+                    <td>
+                      <input type="file">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Upload Insurance Card (Back)</td>
+                    <td>
+                      <input type="file">
+                    </td>
+                  </tr>
+                  <tr *ngFor="let row of rows; let i = index">
+                    <td>Upload X-rays {{ i + 1 }}</td>
+                    <td>
+                      <input type="file">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </mat-card-content>
+            <mat-card-actions align="end">
+              <button mat-flat-button class="btn" color="primary" (click)="addRow()">Add X-rays</button>
+            </mat-card-actions>
+          </mat-card>
+          
+        <mat-card class="width-50-percent">
+            <mat-card-title class="card-title">Patient Instructions</mat-card-title>
+            <mat-card-content>
+                <ul>
+                    <li>Please notify our office at least 48 hours in advance if you must cancel your appointment.</li>
+                    <li>If undergoing IV anerthesia , do not eat or drinnk anything for atleast 8 hours before the time of our surgery. </li>
+                    <li>If undergoing IV anerthesia , please remove contact lenses</li>
+                    <li>If undergoing IV anerthesia , you must arrangments someone have with you who can remain in the office during your surgery and then drive your home and look after you the day of surgery</li>
+                    <li>Minors must be accompanied by a parent or legal guardien </li>
+                </ul>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="container">
+        <mat-card>
+            <mat-card-actions align="end">
+                <button mat-flat-button class="btn" color="warn" (click)="resetForm()">Reset</button>
+                <button mat-flat-button class="btn" color="primary" [disabled]="!isFormComplete()" (click)="saveForm()">Save</button>
+                <button mat-flat-button class="btn" color="primary" *ngIf="isFormSaved"  (click)="printDocument()">Print</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
